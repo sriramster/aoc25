@@ -10,20 +10,22 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     
     let mut pos = 50_i32;
     let mut cnt = 0_i32;
-
+    
     for line in io::BufReader::new(File::open(path)?).lines() {
         let line = line?;
         let step = line[1..].parse::<i32>().unwrap_or_else(|_| unimplemented!());
-        pos = match line.chars().next().unwrap() {
-            'L' => pos - (step % 100),
-            'R' => pos + step,
-            _   => unimplemented!(),
-        };
-        pos = if pos < 0 { pos + 100 } else { pos % 100 };
-        cnt += (pos == 0) as i32;
-        println!("{pos}");
+        for i in 1..=step {
+            pos = match line.chars().next().unwrap() {
+                'L' => (pos - 1 + 100) % 100,
+                'R' => (pos + 1 ) % 100,
+                _ => unimplemented!()
+            };
+            if i == 0 {cnt = cnt + 1;}
+            if pos == 0 {cnt = cnt + 1;}
+            
+        } 
     }
 
-    println!("{cnt}");
+    println!("Final cnt {cnt}");
     Ok(())
 }
