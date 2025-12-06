@@ -61,9 +61,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                 let trimmed = &t[1..t.len() - 1];
                 if trimmed.contains(&tmp_s) {
                     match check_occurrence(&tmp_s) {
-                        Some((s, num)) => {
-                            if num < 3 { println!("{i}, {num}"); invalid = invalid + i; }
-                        }
+                        Some((s, num)) => invalid = invalid + i,
                         None => (),
                     };
                 }
