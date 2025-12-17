@@ -38,6 +38,5 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         total += if op == "+" { sum } else { prod }
     }
     println!("Total = {total}");
-    
     Ok(())
 }
